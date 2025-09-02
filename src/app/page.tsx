@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/animate-ui/radix/accordion";
+import { CodeEditor } from "@/components/animate-ui/components/code-editor";
 
 const resumeData = {
   profile: {
@@ -245,7 +246,7 @@ export default function Home() {
         {/* Profile Section */}
         <div className="flex items-start justify-between">
           {/* Profile Card */}
-          <div className="w-fit h-fit">
+          <div className="w-fit h-[60vh]">
             <ProfileCard
               avatarUrl={resumeData.profile.image}
               name={resumeData.profileCard.name}
@@ -305,12 +306,15 @@ export default function Home() {
                   </a>
                 </div>
               </div> */}
-              <div className="mb-6">
-                <AvatarGroupDemo />
-              </div>
+              <AvatarGroupDemo />
 
               {/* Education and Technical Skills Accordion */}
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue="education"
+                className="w-full"
+              >
                 <AccordionItem value="education">
                   <AccordionTrigger className="text-lg font-bold text-foreground">
                     Education
@@ -435,7 +439,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         {/* Work Experience and Projects Accordion */}
         <Accordion type="single" collapsible className="w-full mb-4">
           <AccordionItem value="experience">
@@ -692,7 +695,11 @@ export default function Home() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-
+        <CodeEditor lang="tsx">
+          {`const a = 1;
+const b = 2;
+const c = a + b;`}
+        </CodeEditor>{" "}
         {/* Footer */}
         <footer className="text-center text-muted-foreground py-2 border-t border-border">
           <p className="text-xs">
