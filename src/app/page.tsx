@@ -10,20 +10,24 @@ import {
   ChevronUp,
 } from "lucide-react";
 import ProfileCard from "@/components/ProfileCard";
+// import ProfileInfo from "@/components/ProfileInfo";
+import { AvatarGroupDemo } from "@/components/AvatarGroup";
 
 const resumeData = {
   profile: {
-    name: "Gabriel Levi Carneiro Ramos",
     description:
       "Bachelor of Computer Science | Minor Business Administration at Boston University",
     image: "/portrait.jpeg",
     contact: {
-      phone: "(978) 810-5602",
       email: "glevi@bu.edu",
       linkedin: "linkedin.com/in/gabrielleviramos",
       github: "github.com/glevi2004",
-      website: "levi-ramos-website.vercel.app/",
     },
+  },
+  profileCard: {
+    name: "Gabriel Levi Ramos",
+    description: "Software Engineer",
+    github: "glevi2004",
   },
   education: {
     school: "Boston University",
@@ -37,8 +41,6 @@ const resumeData = {
       "Operating Systems",
       "Computer Architecture",
       "Model-Based Programming",
-      "Algorithms and Data Structures",
-      "Intro. to Software Engineering",
     ],
   },
   experience: [
@@ -253,87 +255,206 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-background text-foreground transition-colors duration-200">
-      <div className="max-w-4xl mx-auto px-6 pt-10">
+      <div className="max-w-4xl mx-auto px-6 pt-10 flex-row">
         {/* Profile Section */}
-        <div className="w-fit h-fit mb-[-250px]">
-          <ProfileCard
-            avatarUrl={resumeData.profile.image}
-            name={resumeData.profile.name}
-            title={resumeData.profile.description}
-            handle="glevi2004"
-            status="Available for opportunities"
-            contactText="Contact"
-            showUserInfo={true}
-            className="scale-40 transform-gpu origin-top-left"
-            onContactClick={() => {
-              window.open(
-                `mailto:${resumeData.profile.contact.email}`,
-                "_blank"
-              );
-            }}
-          />
-        </div>
+        <div className="flex items-start justify-between">
+          {/* Profile Card */}
+          <div className="w-fit h-fit">
+            <ProfileCard
+              avatarUrl={resumeData.profile.image}
+              name={resumeData.profileCard.name}
+              title={resumeData.profileCard.description}
+              handle={resumeData.profileCard.github}
+              status="Available for opportunities"
+              contactText="Contact"
+              showUserInfo={true}
+              className="scale-70 transform-gpu origin-top-left"
+              onContactClick={() => {
+                window.open(
+                  `mailto:${resumeData.profile.contact.email}`,
+                  "_blank"
+                );
+              }}
+            />
+          </div>
+          {/* Profile Info */}
 
-        {/* Education Section */}
-        <section className="mb-4">
-          <button
-            onClick={() => toggleSection("education")}
-            className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-          >
-            {expandedSections.education ? (
-              <ChevronDown className="w-5 h-5" />
-            ) : (
-              <ChevronRight className="w-5 h-5" />
-            )}
-            Education
-          </button>
-          {expandedSections.education && (
-            <div className="space-y-2">
-              <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-                <div className="flex items-start gap-3 mb-2">
-                  <div className="flex-shrink-0">
-                    <Image
-                      src={resumeData.education.image}
-                      alt="Boston University Logo"
-                      width={120}
-                      height={120}
-                      className="rounded"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-base font-semibold text-foreground">
-                        {resumeData.education.school}
-                      </h3>
-                      <span className="text-xs text-muted-foreground">
-                        {resumeData.education.graduation}
-                      </span>
+          <div className="flex-1 w-[50vw] flex flex-col justify-start pt-10 mt-[-10px] ml-[-40px]">
+            <div className="text-center">
+              {/* Contact Info with Emojis */}
+              {/* <div className="mx-auto flex flex-row gap-6 mb-4 justify-center">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">📧</span>
+                  <a
+                    href={`mailto:${resumeData.profile.contact.email}`}
+                    className="text-primary hover:underline"
+                  >
+                    {resumeData.profile.contact.email}
+                  </a>
+                </div>
+                <div className="flex items-center gap-2"></div>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">🔗</span>
+                  <a
+                    href={`https://${resumeData.profile.contact.linkedin}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    {resumeData.profile.contact.linkedin}
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">💻</span>
+                  <a
+                    href={`https://github.com/${
+                      resumeData.profile.contact.github.split("/")[1]
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    @{resumeData.profile.contact.github.split("/")[1]}
+                  </a>
+                </div>
+              </div> */}
+              <div className="mb-6">
+                <AvatarGroupDemo />
+              </div>
+
+              {/* Education Section */}
+              <div className="text-left mb-6">
+                <button
+                  onClick={() => toggleSection("education")}
+                  className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
+                >
+                  {expandedSections.education ? (
+                    <ChevronDown className="w-5 h-5" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5" />
+                  )}
+                  Education
+                </button>
+                {expandedSections.education && (
+                  <div className="space-y-2">
+                    <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+                      <div className="flex items-start gap-3 mb-2">
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={resumeData.education.image}
+                            alt="Boston University Logo"
+                            width={120}
+                            height={120}
+                            className="rounded"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="text-base font-semibold text-foreground">
+                              {resumeData.education.school}
+                            </h3>
+                            <span className="text-xs text-muted-foreground">
+                              {resumeData.education.graduation}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-2">
+                            {resumeData.education.degree}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {resumeData.education.location}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <p className="text-xs text-muted-foreground mb-1">
+                          Courses:
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {resumeData.education.courses.map((course, index) => (
+                            <span
+                              key={index}
+                              className="text-xs bg-accent px-2 py-1 rounded"
+                            >
+                              {course}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground mb-2">
-                      {resumeData.education.degree}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {resumeData.education.location}
-                    </p>
                   </div>
-                </div>
-                <div className="mt-2">
-                  <p className="text-xs text-muted-foreground mb-1">Courses:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {resumeData.education.courses.map((course, index) => (
-                      <span
-                        key={index}
-                        className="text-xs bg-accent px-2 py-1 rounded"
-                      >
-                        {course}
-                      </span>
-                    ))}
+                )}
+              </div>
+
+              {/* Technical Skills Section */}
+              <div className="text-left">
+                <button
+                  onClick={() => toggleSection("skills")}
+                  className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
+                >
+                  {expandedSections.skills ? (
+                    <ChevronDown className="w-5 h-5" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5" />
+                  )}
+                  Technical Skills
+                </button>
+                {expandedSections.skills && (
+                  <div className="space-y-2">
+                    <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <h4 className="text-sm font-semibold text-foreground mb-2">
+                            Programming Languages
+                          </h4>
+                          <div className="flex flex-wrap gap-1">
+                            {[
+                              "JavaScript",
+                              "TypeScript",
+                              "Python",
+                              "Java",
+                              "Swift",
+                              "SQL",
+                            ].map((skill, index) => (
+                              <span
+                                key={index}
+                                className="text-xs bg-accent px-2 py-1 rounded"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold text-foreground mb-2">
+                            Frameworks & Tools
+                          </h4>
+                          <div className="flex flex-wrap gap-1">
+                            {[
+                              "React",
+                              "Next.js",
+                              "Node.js",
+                              "Express",
+                              "Firebase",
+                              "Docker",
+                            ].map((skill, index) => (
+                              <span
+                                key={index}
+                                className="text-xs bg-accent px-2 py-1 rounded"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
-          )}
-        </section>
+          </div>
+        </div>
 
         {/* Work Experience Section */}
         <section className="mb-4">
@@ -682,8 +803,8 @@ export default function Home() {
         {/* Footer */}
         <footer className="text-center text-muted-foreground py-2 border-t border-border">
           <p className="text-xs">
-            © 2024 {resumeData.profile.name}. Built with Next.js and Tailwind
-            CSS.
+            © 2024 {resumeData.profileCard.name}. Built with Next.js and
+            Tailwind CSS.
           </p>
         </footer>
       </div>
