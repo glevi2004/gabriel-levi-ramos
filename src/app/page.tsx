@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-  Paperclip,
-  Pyramid,
-  ChevronUp,
-} from "lucide-react";
+import { Paperclip, Pyramid, ChevronUp, ChevronDown } from "lucide-react";
 import ProfileCard from "@/components/ProfileCard";
 // import ProfileInfo from "@/components/ProfileInfo";
 import { AvatarGroupDemo } from "@/components/AvatarGroup";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/animate-ui/radix/accordion";
 
 const resumeData = {
   profile: {
@@ -228,23 +228,9 @@ const resumeData = {
 };
 
 export default function Home() {
-  const [expandedSections, setExpandedSections] = useState({
-    education: false,
-    experience: false,
-    projects: false,
-    skills: false,
-  });
-
   const [expandedProjectDetails, setExpandedProjectDetails] = useState<{
     [key: string]: boolean;
   }>({});
-
-  const toggleSection = (section: keyof typeof expandedSections) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
 
   const toggleProjectDetails = (projectName: string) => {
     setExpandedProjectDetails((prev) => ({
@@ -323,482 +309,389 @@ export default function Home() {
                 <AvatarGroupDemo />
               </div>
 
-              {/* Education Section */}
-              <div className="text-left mb-6">
-                <button
-                  onClick={() => toggleSection("education")}
-                  className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-                >
-                  {expandedSections.education ? (
-                    <ChevronDown className="w-5 h-5" />
-                  ) : (
-                    <ChevronRight className="w-5 h-5" />
-                  )}
-                  Education
-                </button>
-                {expandedSections.education && (
-                  <div className="space-y-2">
-                    <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-                      <div className="flex items-start gap-3 mb-2">
-                        <div className="flex-shrink-0">
-                          <Image
-                            src={resumeData.education.image}
-                            alt="Boston University Logo"
-                            width={120}
-                            height={120}
-                            className="rounded"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-base font-semibold text-foreground">
-                              {resumeData.education.school}
-                            </h3>
-                            <span className="text-xs text-muted-foreground">
-                              {resumeData.education.graduation}
-                            </span>
+              {/* Education and Technical Skills Accordion */}
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="education">
+                  <AccordionTrigger className="text-lg font-bold text-foreground">
+                    Education
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-2">
+                      <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+                        <div className="flex items-start gap-3 mb-2">
+                          <div className="flex-shrink-0">
+                            <Image
+                              src={resumeData.education.image}
+                              alt="Boston University Logo"
+                              width={120}
+                              height={120}
+                              className="rounded"
+                            />
                           </div>
-                          <p className="text-xs text-muted-foreground mb-2">
-                            {resumeData.education.degree}
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                              <h3 className="text-base font-semibold text-foreground">
+                                {resumeData.education.school}
+                              </h3>
+                              <span className="text-xs text-muted-foreground">
+                                {resumeData.education.graduation}
+                              </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mb-2">
+                              {resumeData.education.degree}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {resumeData.education.location}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-2">
+                          <p className="text-xs text-muted-foreground mb-1">
+                            Courses:
                           </p>
-                          <p className="text-xs text-muted-foreground">
-                            {resumeData.education.location}
-                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {resumeData.education.courses.map(
+                              (course, index) => (
+                                <span
+                                  key={index}
+                                  className="text-xs bg-accent px-2 py-1 rounded"
+                                >
+                                  {course}
+                                </span>
+                              )
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="mt-2">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          Courses:
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {resumeData.education.courses.map((course, index) => (
-                            <span
-                              key={index}
-                              className="text-xs bg-accent px-2 py-1 rounded"
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="skills">
+                  <AccordionTrigger className="text-lg font-bold text-foreground">
+                    Technical Skills
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                          Languages
+                        </h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {resumeData.skills.languages.map((skill) => (
+                            <div
+                              key={skill}
+                              className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
                             >
-                              {course}
-                            </span>
+                              <span className="text-xs text-foreground font-medium">
+                                {skill}
+                              </span>
+                            </div>
                           ))}
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-              </div>
 
-              {/* Technical Skills Section */}
-              <div className="text-left">
-                <button
-                  onClick={() => toggleSection("skills")}
-                  className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-                >
-                  {expandedSections.skills ? (
-                    <ChevronDown className="w-5 h-5" />
-                  ) : (
-                    <ChevronRight className="w-5 h-5" />
-                  )}
-                  Technical Skills
-                </button>
-                {expandedSections.skills && (
-                  <div className="space-y-2">
-                    <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-2">
-                            Programming Languages
-                          </h4>
-                          <div className="flex flex-wrap gap-1">
-                            {[
-                              "JavaScript",
-                              "TypeScript",
-                              "Python",
-                              "Java",
-                              "Swift",
-                              "SQL",
-                            ].map((skill, index) => (
-                              <span
-                                key={index}
-                                className="text-xs bg-accent px-2 py-1 rounded"
-                              >
-                                {skill}
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                          Developer Tools
+                        </h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {resumeData.skills.developerTools.map((tool) => (
+                            <div
+                              key={tool}
+                              className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
+                            >
+                              <span className="text-xs text-foreground font-medium">
+                                {tool}
                               </span>
-                            ))}
-                          </div>
+                            </div>
+                          ))}
                         </div>
-                        <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-2">
-                            Frameworks & Tools
-                          </h4>
-                          <div className="flex flex-wrap gap-1">
-                            {[
-                              "React",
-                              "Next.js",
-                              "Node.js",
-                              "Express",
-                              "Firebase",
-                              "Docker",
-                            ].map((skill, index) => (
-                              <span
-                                key={index}
-                                className="text-xs bg-accent px-2 py-1 rounded"
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                          Libraries & Frameworks
+                        </h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {resumeData.skills.librariesFrameworks.map(
+                            (framework) => (
+                              <div
+                                key={framework}
+                                className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
                               >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
+                                <span className="text-xs text-foreground font-medium">
+                                  {framework}
+                                </span>
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </div>
         </div>
 
-        {/* Work Experience Section */}
-        <section className="mb-4">
-          <button
-            onClick={() => toggleSection("experience")}
-            className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-          >
-            {expandedSections.experience ? (
-              <ChevronDown className="w-5 h-5" />
-            ) : (
-              <ChevronRight className="w-5 h-5" />
-            )}
-            Work Experience
-          </button>
-          {expandedSections.experience && (
-            <div className="space-y-2">
-              {resumeData.experience.map((job, index) => (
-                <div
-                  key={index}
-                  className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
-                >
-                  <div className="flex items-start gap-3 mb-2">
-                    {job.image && (
-                      <div className="flex-shrink-0">
-                        <Image
-                          src={job.image}
-                          alt={`${job.company} Logo`}
-                          width={60}
-                          height={60}
-                          className={
-                            job.company === "Esurgi, Inc." ||
-                            job.company === "Ernst & Young"
-                              ? ""
-                              : "rounded-full"
-                          }
-                        />
+        {/* Work Experience and Projects Accordion */}
+        <Accordion type="single" collapsible className="w-full mb-4">
+          <AccordionItem value="experience">
+            <AccordionTrigger className="text-lg font-bold text-foreground">
+              Work Experience
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-2">
+                {resumeData.experience.map((job, index) => (
+                  <div
+                    key={index}
+                    className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
+                  >
+                    <div className="flex items-start gap-3 mb-2">
+                      {job.image && (
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={job.image}
+                            alt={`${job.company} Logo`}
+                            width={60}
+                            height={60}
+                            className={
+                              job.company === "Esurgi, Inc." ||
+                              job.company === "Ernst & Young"
+                                ? ""
+                                : "rounded-full"
+                            }
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-base font-semibold text-foreground">
+                            {job.position}
+                          </h3>
+                          <span className="text-xs text-muted-foreground">
+                            {job.duration}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium text-foreground mb-1">
+                          {job.company} • {job.location}
+                        </p>
+                        <ul className="space-y-1">
+                          {job.achievements.map(
+                            (achievement, achievementIndex) => (
+                              <li
+                                key={achievementIndex}
+                                className="text-xs text-muted-foreground leading-tight"
+                              >
+                                • {achievement}
+                              </li>
+                            )
+                          )}
+                        </ul>
                       </div>
-                    )}
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-base font-semibold text-foreground">
-                          {job.position}
-                        </h3>
-                        <span className="text-xs text-muted-foreground">
-                          {job.duration}
-                        </span>
-                      </div>
-                      <p className="text-sm font-medium text-foreground mb-1">
-                        {job.company} • {job.location}
-                      </p>
-                      <ul className="space-y-1">
-                        {job.achievements.map(
-                          (achievement, achievementIndex) => (
-                            <li
-                              key={achievementIndex}
-                              className="text-xs text-muted-foreground leading-tight"
-                            >
-                              • {achievement}
-                            </li>
-                          )
-                        )}
-                      </ul>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
 
-        {/* Projects Section */}
-        <section className="mb-4">
-          <button
-            onClick={() => toggleSection("projects")}
-            className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-          >
-            {expandedSections.projects ? (
-              <ChevronDown className="w-5 h-5" />
-            ) : (
-              <ChevronRight className="w-5 h-5" />
-            )}
-            Projects
-          </button>
-          {expandedSections.projects && (
-            <div className="flex gap-4">
-              <div className="flex-1 space-y-4">
-                {resumeData.projects
-                  .filter((_, index) => index % 2 === 0)
-                  .map((project, index) => (
-                    <div
-                      key={project.name}
-                      className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
-                    >
-                      <div className="flex items-start gap-3 mb-2">
-                        {project.image ? (
-                          <div className="flex-shrink-0">
-                            <Image
-                              src={project.image}
-                              alt={`${project.name} Logo`}
-                              width={64}
-                              height={64}
-                              className="rounded"
-                            />
-                          </div>
-                        ) : project.name === "Clipy AI" ? (
-                          <div className="flex-shrink-0">
-                            <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-[#F2C94C] text-black shadow-lg">
-                              <Paperclip className="h-8 w-8" />
+          <AccordionItem value="projects">
+            <AccordionTrigger className="text-lg font-bold text-foreground">
+              Projects
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex gap-4">
+                <div className="flex-1 space-y-4">
+                  {resumeData.projects
+                    .filter((_, index) => index % 2 === 0)
+                    .map((project, index) => (
+                      <div
+                        key={project.name}
+                        className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
+                      >
+                        <div className="flex items-start gap-3 mb-2">
+                          {project.image ? (
+                            <div className="flex-shrink-0">
+                              <Image
+                                src={project.image}
+                                alt={`${project.name} Logo`}
+                                width={64}
+                                height={64}
+                                className="rounded"
+                              />
                             </div>
-                          </div>
-                        ) : project.name === "Alan AI" ? (
-                          <div className="flex-shrink-0">
-                            <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg">
-                              <Pyramid className="h-8 w-8" />
+                          ) : project.name === "Clipy AI" ? (
+                            <div className="flex-shrink-0">
+                              <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-[#F2C94C] text-black shadow-lg">
+                                <Paperclip className="h-8 w-8" />
+                              </div>
                             </div>
-                          </div>
-                        ) : null}
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-base font-semibold text-foreground">
-                              {project.name}
-                            </h3>
-                            <div className="flex gap-2">
-                              <a
-                                href={project.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-xs text-blue-500 hover:underline"
-                              >
-                                Website
-                              </a>
-                              {project.sourceCode && (
+                          ) : project.name === "Alan AI" ? (
+                            <div className="flex-shrink-0">
+                              <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg">
+                                <Pyramid className="h-8 w-8" />
+                              </div>
+                            </div>
+                          ) : null}
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                              <h3 className="text-base font-semibold text-foreground">
+                                {project.name}
+                              </h3>
+                              <div className="flex gap-2">
                                 <a
-                                  href={project.sourceCode}
+                                  href={project.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-xs text-blue-500 hover:underline"
                                 >
-                                  Source
+                                  Website
                                 </a>
-                              )}
+                                {project.sourceCode && (
+                                  <a
+                                    href={project.sourceCode}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-blue-500 hover:underline"
+                                  >
+                                    Source
+                                  </a>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                          <p className="text-xs text-muted-foreground mb-2">
-                            {project.tech}
-                          </p>
-                          <p className="text-xs text-muted-foreground leading-tight mb-1">
-                            {project.description}
-                          </p>
-                          {expandedProjectDetails[project.name] && (
-                            <div className="mt-2">
-                              <p className="text-xs text-muted-foreground leading-tight">
-                                {project.details}
-                              </p>
-                            </div>
-                          )}
-                          <button
-                            onClick={() => toggleProjectDetails(project.name)}
-                            className="text-xs text-muted-foreground hover:text-foreground transition-colors mt-1 flex items-center gap-1"
-                          >
-                            {expandedProjectDetails[project.name] ? (
-                              <>
-                                Hide Details
-                                <ChevronUp className="h-3 w-3" />
-                              </>
-                            ) : (
-                              <>
-                                Show Details
-                                <ChevronDown className="h-3 w-3" />
-                              </>
+                            <p className="text-xs text-muted-foreground mb-2">
+                              {project.tech}
+                            </p>
+                            <p className="text-xs text-muted-foreground leading-tight mb-1">
+                              {project.description}
+                            </p>
+                            {expandedProjectDetails[project.name] && (
+                              <div className="mt-2">
+                                <p className="text-xs text-muted-foreground leading-tight">
+                                  {project.details}
+                                </p>
+                              </div>
                             )}
-                          </button>
+                            <button
+                              onClick={() => toggleProjectDetails(project.name)}
+                              className="text-xs text-muted-foreground hover:text-foreground transition-colors mt-1 flex items-center gap-1"
+                            >
+                              {expandedProjectDetails[project.name] ? (
+                                <>
+                                  Hide Details
+                                  <ChevronUp className="h-3 w-3" />
+                                </>
+                              ) : (
+                                <>
+                                  Show Details
+                                  <ChevronDown className="h-3 w-3" />
+                                </>
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-              <div className="flex-1 space-y-4">
-                {resumeData.projects
-                  .filter((_, index) => index % 2 === 1)
-                  .map((project, index) => (
-                    <div
-                      key={project.name}
-                      className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
-                    >
-                      <div className="flex items-start gap-3 mb-2">
-                        {project.image ? (
-                          <div className="flex-shrink-0">
-                            <Image
-                              src={project.image}
-                              alt={`${project.name} Logo`}
-                              width={64}
-                              height={64}
-                              className="rounded"
-                            />
-                          </div>
-                        ) : project.name === "Clipy AI" ? (
-                          <div className="flex-shrink-0">
-                            <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-[#F2C94C] text-black shadow-lg">
-                              <Paperclip className="h-8 w-8" />
+                    ))}
+                </div>
+                <div className="flex-1 space-y-4">
+                  {resumeData.projects
+                    .filter((_, index) => index % 2 === 1)
+                    .map((project, index) => (
+                      <div
+                        key={project.name}
+                        className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow"
+                      >
+                        <div className="flex items-start gap-3 mb-2">
+                          {project.image ? (
+                            <div className="flex-shrink-0">
+                              <Image
+                                src={project.image}
+                                alt={`${project.name} Logo`}
+                                width={64}
+                                height={64}
+                                className="rounded"
+                              />
                             </div>
-                          </div>
-                        ) : project.name === "Alan AI" ? (
-                          <div className="flex-shrink-0">
-                            <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg">
-                              <Pyramid className="h-8 w-8" />
+                          ) : project.name === "Clipy AI" ? (
+                            <div className="flex-shrink-0">
+                              <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-[#F2C94C] text-black shadow-lg">
+                                <Paperclip className="h-8 w-8" />
+                              </div>
                             </div>
-                          </div>
-                        ) : null}
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-base font-semibold text-foreground">
-                              {project.name}
-                            </h3>
-                            <div className="flex gap-2">
-                              <a
-                                href={project.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-xs text-blue-500 hover:underline"
-                              >
-                                Website
-                              </a>
-                              {project.sourceCode && (
+                          ) : project.name === "Alan AI" ? (
+                            <div className="flex-shrink-0">
+                              <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg">
+                                <Pyramid className="h-8 w-8" />
+                              </div>
+                            </div>
+                          ) : null}
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                              <h3 className="text-base font-semibold text-foreground">
+                                {project.name}
+                              </h3>
+                              <div className="flex gap-2">
                                 <a
-                                  href={project.sourceCode}
+                                  href={project.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-xs text-blue-500 hover:underline"
                                 >
-                                  Source
+                                  Website
                                 </a>
-                              )}
+                                {project.sourceCode && (
+                                  <a
+                                    href={project.sourceCode}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-blue-500 hover:underline"
+                                  >
+                                    Source
+                                  </a>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                          <p className="text-xs text-muted-foreground mb-2">
-                            {project.tech}
-                          </p>
-                          <p className="text-xs text-muted-foreground leading-tight mb-1">
-                            {project.description}
-                          </p>
-                          {expandedProjectDetails[project.name] && (
-                            <div className="mt-2">
-                              <p className="text-xs text-muted-foreground leading-tight">
-                                {project.details}
-                              </p>
-                            </div>
-                          )}
-                          <button
-                            onClick={() => toggleProjectDetails(project.name)}
-                            className="text-xs text-muted-foreground hover:text-foreground transition-colors mt-1 flex items-center gap-1"
-                          >
-                            {expandedProjectDetails[project.name] ? (
-                              <>
-                                Hide Details
-                                <ChevronUp className="h-3 w-3" />
-                              </>
-                            ) : (
-                              <>
-                                Show Details
-                                <ChevronDown className="h-3 w-3" />
-                              </>
+                            <p className="text-xs text-muted-foreground mb-2">
+                              {project.tech}
+                            </p>
+                            <p className="text-xs text-muted-foreground leading-tight mb-1">
+                              {project.description}
+                            </p>
+                            {expandedProjectDetails[project.name] && (
+                              <div className="mt-2">
+                                <p className="text-xs text-muted-foreground leading-tight">
+                                  {project.details}
+                                </p>
+                              </div>
                             )}
-                          </button>
+                            <button
+                              onClick={() => toggleProjectDetails(project.name)}
+                              className="text-xs text-muted-foreground hover:text-foreground transition-colors mt-1 flex items-center gap-1"
+                            >
+                              {expandedProjectDetails[project.name] ? (
+                                <>
+                                  Hide Details
+                                  <ChevronUp className="h-3 w-3" />
+                                </>
+                              ) : (
+                                <>
+                                  Show Details
+                                  <ChevronDown className="h-3 w-3" />
+                                </>
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* Technical Skills Section */}
-        <section className="mb-4">
-          <button
-            onClick={() => toggleSection("skills")}
-            className="flex items-center gap-2 text-lg font-bold text-foreground mb-3 border-b border-border pb-1 w-full text-left hover:text-accent-foreground transition-colors"
-          >
-            {expandedSections.skills ? (
-              <ChevronDown className="w-5 h-5" />
-            ) : (
-              <ChevronRight className="w-5 h-5" />
-            )}
-            Technical Skills
-          </button>
-          {expandedSections.skills && (
-            <div className="space-y-3">
-              <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  Languages
-                </h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {resumeData.skills.languages.map((skill) => (
-                    <div
-                      key={skill}
-                      className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                    >
-                      <span className="text-xs text-foreground font-medium">
-                        {skill}
-                      </span>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
-
-              <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  Developer Tools
-                </h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {resumeData.skills.developerTools.map((tool) => (
-                    <div
-                      key={tool}
-                      className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                    >
-                      <span className="text-xs text-foreground font-medium">
-                        {tool}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  Libraries & Frameworks
-                </h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {resumeData.skills.librariesFrameworks.map((framework) => (
-                    <div
-                      key={framework}
-                      className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                    >
-                      <span className="text-xs text-foreground font-medium">
-                        {framework}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </section>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Footer */}
         <footer className="text-center text-muted-foreground py-2 border-t border-border">
