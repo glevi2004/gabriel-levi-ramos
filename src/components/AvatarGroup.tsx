@@ -24,7 +24,10 @@ const AVATARS = [
 
 export const AvatarGroupDemo = () => {
   return (
-    <AvatarGroup className="h-12 -space-x-3">
+    <AvatarGroup
+      className="h-12 -space-x-3"
+      tooltipProps={{ side: "top", sideOffset: 8 }}
+    >
       {AVATARS.map((avatar, index) => (
         <Avatar key={index} className="size-12 border-3 border-background">
           <AvatarImage src={avatar.src} />

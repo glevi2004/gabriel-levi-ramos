@@ -250,12 +250,12 @@ export default function Home() {
             <ProfileCard
               avatarUrl={resumeData.profile.image}
               name={resumeData.profileCard.name}
-              title={resumeData.profileCard.description}
+              // title={resumeData.profileCard.description}
               handle={resumeData.profileCard.github}
               status="Available for opportunities"
               contactText="Contact"
               showUserInfo={true}
-              className="scale-70 transform-gpu origin-top-left"
+              className="scale-40 transform-gpu origin-top-left"
               onContactClick={() => {
                 window.open(
                   `mailto:${resumeData.profile.contact.email}`,
@@ -266,180 +266,70 @@ export default function Home() {
           </div>
           {/* Profile Info */}
 
-          <div className="flex-1 w-[50vw] flex flex-col justify-start pt-10 mt-[-10px] ml-[-40px]">
+          <div className="flex-1 w-full flex flex-col justify-start pt-10 mt-[-34px] ml-[-200px]">
             <div className="text-center">
               {/* Contact Info with Emojis */}
-              {/* <div className="mx-auto flex flex-row gap-6 mb-4 justify-center">
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">📧</span>
-                  <a
-                    href={`mailto:${resumeData.profile.contact.email}`}
-                    className="text-primary hover:underline"
-                  >
-                    {resumeData.profile.contact.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2"></div>
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">🔗</span>
-                  <a
-                    href={`https://${resumeData.profile.contact.linkedin}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    {resumeData.profile.contact.linkedin}
-                  </a>
-                </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">💻</span>
-                  <a
-                    href={`https://github.com/${
-                      resumeData.profile.contact.github.split("/")[1]
-                    }`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    @{resumeData.profile.contact.github.split("/")[1]}
-                  </a>
-                </div>
-              </div> */}
               <AvatarGroupDemo />
 
-              {/* Education and Technical Skills Accordion */}
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue="education"
-                className="w-full"
-              >
-                <AccordionItem value="education">
-                  <AccordionTrigger className="text-lg font-bold text-foreground">
-                    Education
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-                        <div className="flex items-start gap-3 mb-2">
-                          <div className="flex-shrink-0">
-                            <Image
-                              src={resumeData.education.image}
-                              alt="Boston University Logo"
-                              width={120}
-                              height={120}
-                              className="rounded"
-                            />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex justify-between items-start mb-2">
-                              <h3 className="text-base font-semibold text-foreground">
-                                {resumeData.education.school}
-                              </h3>
-                              <span className="text-xs text-muted-foreground">
-                                {resumeData.education.graduation}
-                              </span>
-                            </div>
-                            <p className="text-xs text-muted-foreground mb-2">
-                              {resumeData.education.degree}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {resumeData.education.location}
-                            </p>
-                          </div>
+              {/* Education Section */}
+              <div className="w-full mb-6">
+                <h2 className="text-lg font-bold text-foreground mt-4 mb-3 text-left">
+                  Education
+                </h2>
+                <div className="space-y-2">
+                  <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className="flex-shrink-0">
+                        <Image
+                          src={resumeData.education.image}
+                          alt="Boston University Logo"
+                          width={120}
+                          height={120}
+                          className="rounded"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-base font-semibold text-foreground">
+                            {resumeData.education.school}
+                          </h3>
+                          <span className="text-xs text-muted-foreground">
+                            {resumeData.education.graduation}
+                          </span>
                         </div>
-                        <div className="mt-2">
-                          <p className="text-xs text-muted-foreground mb-1">
-                            Courses:
+                        <div className="flex justify-between items-center mb-2">
+                          <p className="text-xs text-muted-foreground">
+                            {resumeData.education.degree}
                           </p>
-                          <div className="flex flex-wrap gap-1">
-                            {resumeData.education.courses.map(
-                              (course, index) => (
-                                <span
-                                  key={index}
-                                  className="text-xs bg-accent px-2 py-1 rounded"
-                                >
-                                  {course}
-                                </span>
-                              )
-                            )}
-                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            {resumeData.education.location}
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="skills">
-                  <AccordionTrigger className="text-lg font-bold text-foreground">
-                    Technical Skills
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-3">
-                      <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">
-                          Languages
-                        </h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                          {resumeData.skills.languages.map((skill) => (
-                            <div
-                              key={skill}
-                              className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                            >
-                              <span className="text-xs text-foreground font-medium">
-                                {skill}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">
-                          Developer Tools
-                        </h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                          {resumeData.skills.developerTools.map((tool) => (
-                            <div
-                              key={tool}
-                              className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                            >
-                              <span className="text-xs text-foreground font-medium">
-                                {tool}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">
-                          Libraries & Frameworks
-                        </h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                          {resumeData.skills.librariesFrameworks.map(
-                            (framework) => (
-                              <div
-                                key={framework}
-                                className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
-                              >
-                                <span className="text-xs text-foreground font-medium">
-                                  {framework}
-                                </span>
-                              </div>
-                            )
-                          )}
-                        </div>
+                    <div className="mt-2">
+                      <p className="text-xs text-muted-foreground mb-1 text-left">
+                        Courses:
+                      </p>
+                      <div className="flex flex-wrap gap-1">
+                        {resumeData.education.courses.map((course, index) => (
+                          <span
+                            key={index}
+                            className="text-xs bg-accent px-2 py-1 rounded"
+                          >
+                            {course}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        {/* Work Experience and Projects Accordion */}
+        {/* Work Experience, Projects, and Technical Skills Accordion */}
         <Accordion type="single" collapsible className="w-full mb-4">
           <AccordionItem value="experience">
             <AccordionTrigger className="text-lg font-bold text-foreground">
@@ -690,6 +580,69 @@ export default function Home() {
                         </div>
                       </div>
                     ))}
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="skills">
+            <AccordionTrigger className="text-lg font-bold text-foreground">
+              Technical Skills
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                    Languages
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {resumeData.skills.languages.map((skill) => (
+                      <div
+                        key={skill}
+                        className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
+                      >
+                        <span className="text-xs text-foreground font-medium">
+                          {skill}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                    Developer Tools
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {resumeData.skills.developerTools.map((tool) => (
+                      <div
+                        key={tool}
+                        className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
+                      >
+                        <span className="text-xs text-foreground font-medium">
+                          {tool}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                    Libraries & Frameworks
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {resumeData.skills.librariesFrameworks.map((framework) => (
+                      <div
+                        key={framework}
+                        className="bg-card border border-border rounded-lg px-2 py-1 text-center hover:bg-accent transition-colors"
+                      >
+                        <span className="text-xs text-foreground font-medium">
+                          {framework}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </AccordionContent>
