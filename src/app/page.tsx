@@ -248,43 +248,46 @@ export default function Home() {
     <div className="h-screen bg-background text-foreground transition-colors duration-200">
       <div className="max-w-4xl mx-auto px-4 pt-10 flex-row">
         {/* Profile and Education Section - Side by side on large screens */}
-        <div className="flex flex-col lg:flex-row mb-6">
-          {/* Profile Section */}
-          <div className="flex items-start justify-between mr-6">
-            {/* Profile Image and Info */}
-            <div className="w-fit mr-6">
-              <div className="flex flex-col items-center">
-                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-border mb-3">
-                  <Image
-                    src={resumeData.profile.image}
-                    alt="Profile"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-cover"
-                  />
+        <div className="bg-card border border-border rounded-lg p-6 mb-6">
+          <div className="flex flex-col lg:flex-row mb-6">
+            {/* Profile Section */}
+            <div className="flex items-start justify-between mr-6">
+              {/* Profile Image and Info */}
+              <div className="w-fit mr-6">
+                <div className="flex flex-col items-center">
+                  <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-border mb-3">
+                    <Image
+                      src={resumeData.profile.image}
+                      alt="Profile"
+                      width={80}
+                      height={80}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Profile Info */}
+              <div className="w-full flex flex-col justify-start">
+                <div className="flex flex-col">
+                  <h2 className="text-lg font-bold text-foreground mt-2 mb-2">
+                    {resumeData.profileCard.name}
+                  </h2>
+                  <p className="text-md text-muted-foreground mb-2">
+                    {resumeData.profileCard.description}
+                  </p>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <AvatarGroupDemo />
                 </div>
               </div>
             </div>
-            {/* Profile Info */}
-            <div className="w-full flex flex-col justify-start">
-              <div className="flex flex-col">
-                <h2 className="text-lg font-bold text-foreground mt-2 mb-2">
-                  {resumeData.profileCard.name}
-                </h2>
-                <p className="text-md text-muted-foreground mb-2">
-                  {resumeData.profileCard.description}
-                </p>
-              </div>
-              <div className="flex gap-2 mb-4">
-                <AvatarGroupDemo />
-              </div>
-            </div>
-          </div>
 
-          {/* Education Section */}
-          <div className="w-full">
-            <div className="space-y-2">
-              <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+            {/* Line Separator */}
+            <div className="hidden lg:block w-px bg-border mx-4"></div>
+
+            {/* Education Section */}
+            <div className="w-full">
+              <div className="space-y-2">
                 <div className="flex items-start gap-3 mb-2">
                   <div className="flex-shrink-0">
                     <Image
