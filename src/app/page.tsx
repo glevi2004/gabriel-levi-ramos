@@ -1,17 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Paperclip, Pyramid, ChevronUp, ChevronDown } from "lucide-react";
 // import ProfileInfo from "@/components/ProfileInfo";
 import { AvatarGroupDemo } from "@/components/AvatarGroup";
+import GitHubCalendarComponent from "@/components/GitHubCalendar";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/components/animate-ui/radix/accordion";
-import { fetchGitHubProfile } from "@/lib/github";
 
 const resumeData = {
   profile: {
@@ -232,6 +232,26 @@ export default function Home() {
     [key: string]: boolean;
   }>({});
   const [isTyping, setIsTyping] = useState(false);
+  const [githubData, setGithubData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGitHubData = async () => {
+      try {
+        const response = await fetch("/api/github");
+        const data = await response.json();
+        if (data.success) {
+          setGithubData(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch GitHub data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGitHubData();
+  }, []);
 
   const toggleProjectDetails = (projectName: string) => {
     setExpandedProjectDetails((prev) => ({
@@ -330,6 +350,126 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* GitHub Profile Section */}
+        {!loading && githubData && (
+          <div className="w-full mb-6">
+            <h2 className="text-lg font-bold text-foreground mb-3">
+              GitHub Profile
+            </h2>
+            <div className="bg-card border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
+              <div className="flex items-start gap-6">
+                {/* Avatar and Basic Info */}
+                <div className="flex-shrink-0">
+                  <img
+                    src={githubData.profile.avatar_url}
+                    alt={`${githubData.profile.name}'s avatar`}
+                    className="w-24 h-24 rounded-full border-2 border-blue-500"
+                  />
+                </div>
+
+                {/* Profile Details */}
+                <div className="flex-1">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      {githubData.profile.name}
+                    </h3>
+                    <p className="text-muted-foreground">
+                      @{githubData.profile.username}
+                    </p>
+                    {githubData.profile.bio && (
+                      <p className="text-sm text-muted-foreground mt-2">
+                        {githubData.profile.bio}
+                      </p>
+                    )}
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Member since{" "}
+                      {new Date(
+                        githubData.profile.created_at
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-2xl font-bold text-foreground">
+                        {githubData.profile.public_repos}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Repositories
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-2xl font-bold text-foreground">
+                        {githubData.profile.followers}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Followers
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-2xl font-bold text-foreground">
+                        {githubData.profile.following}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Following
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-2xl font-bold text-foreground">
+                        {githubData.stats.totalContributions}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Total Contributions
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Detailed Stats */}
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <h4 className="text-md font-semibold text-foreground mb-3">
+                      Activity Breakdown
+                    </h4>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="text-center">
+                        <div className="text-lg font-semibold text-foreground">
+                          {githubData.stats.totalCommits}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Commits
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg font-semibold text-foreground">
+                          {githubData.stats.totalIssues}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Issues
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg font-semibold text-foreground">
+                          {githubData.stats.totalPullRequests}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Pull Requests
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* GitHub Calendar */}
+        {!loading && githubData && (
+          <GitHubCalendarComponent username="glevi2004" />
+        )}
         {/* Work Experience, Projects, and Technical Skills Accordion */}
         <Accordion type="single" collapsible className="w-full mb-4">
           <AccordionItem value="experience">
