@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchGitHubProfile } from "@/lib/github";
 
 interface ProfileInfoProps {
   name: string;
@@ -17,8 +18,30 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
   description,
   contact,
 }) => {
+  const [githubStats, setGithubStats] = useState<{
+    repos: number;
+    followers: number;
+    following: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const loadGithubStats = async () => {
+      try {
+        const profile = await fetchGitHubProfile();
+        setGithubStats({
+          repos: profile.public_repos,
+          followers: profile.followers,
+          following: profile.following,
+        });
+      } catch (error) {
+        console.error("Failed to fetch GitHub stats:", error);
+      }
+    };
+
+    loadGithubStats();
+  }, []);
   return (
-    <div className="text-center">
+    <div className="text-left max-w-3xl">
       <h1 className="text-3xl font-bold text-foreground mb-6">{name}</h1>
 
       {/* Contact Info with Emojis */}
@@ -72,9 +95,27 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
       </div>
 
       {/* Description */}
-      <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+      <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed mb-6">
         {description}
       </p>
+
+      {/* GitHub Stats */}
+      {githubStats && (
+        <div className="flex justify-center gap-8">
+          <div className="text-center">
+            <div className="text-2xl font-bold">{githubStats.repos}</div>
+            <div className="text-sm text-muted-foreground">Repositories</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold">{githubStats.followers}</div>
+            <div className="text-sm text-muted-foreground">Followers</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold">{githubStats.following}</div>
+            <div className="text-sm text-muted-foreground">Following</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

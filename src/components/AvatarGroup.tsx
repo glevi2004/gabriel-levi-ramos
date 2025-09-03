@@ -20,6 +20,11 @@ const AVATARS = [
     fallback: "AW",
     tooltip: "Instagram",
   },
+  {
+    src: "/socials/x.png",
+    fallback: "X",
+    tooltip: "X",
+  },
 ];
 
 export const AvatarGroupDemo = () => {

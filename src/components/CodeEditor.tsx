@@ -1,38 +1,37 @@
-// import ReactIcon from "@/components/icons/react-icon";
 import { CodeEditor } from "@/components/animate-ui/components/code-editor";
+import { useState } from "react";
 
-export const CodeEditorDemo = () => {
+export default function CodeEditorDemo() {
+  const [isWriting, setIsWriting] = useState(true);
+
+  const handleStartTyping = () => {
+    setIsWriting(true);
+  };
+
   return (
-    <CodeEditor
-      cursor
-      className="w-[640px] h-[480px]"
-      lang="tsx"
-      title="component.tsx"
-      //   icon={<ReactIcon />}
-      duration={15}
-      delay={0.5}
-      copyButton
-    >
-      {`'use client';
- 
-import * as React from 'react';
- 
-type MyComponentProps = {
-  myProps: string;
-} & React.HTMLAttributes<HTMLDivElement>;
- 
-const MyComponent = React.forwardRef<HTMLDivElement, MyComponentProps>(
-  ({ myProps, ...props }, ref) => {
-    return (
-      <div ref={ref} {...props}>
-        <p>My Component</p>
-      </div>
-    );
-  },
-);
-MyComponent.displayName = 'MyComponent';
- 
-export { MyComponent, type MyComponentProps };`}
-    </CodeEditor>
+    <div className="code-editor-container">
+      <CodeEditor
+        cursor
+        className="w-[full] h-[480px]"
+        lang="tsx"
+        title="component.tsx"
+        duration={15}
+        delay={0.5}
+        copyButton
+        writing={isWriting}
+        onDone={() => setIsWriting(false)}
+      >
+        {`for (let i = 0; i < 10; i++) {
+          console.log(i);
+        }`}
+      </CodeEditor>
+
+      {/* <button
+        onClick={handleStartTyping}
+        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+      >
+        Start Typing
+      </button> */}
+    </div>
   );
-};
+}

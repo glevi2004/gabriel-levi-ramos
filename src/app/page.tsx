@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Paperclip, Pyramid, ChevronUp, ChevronDown } from "lucide-react";
-import ProfileCard from "@/components/ProfileCard";
 // import ProfileInfo from "@/components/ProfileInfo";
 import { AvatarGroupDemo } from "@/components/AvatarGroup";
 import {
@@ -12,7 +11,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/animate-ui/radix/accordion";
-import { CodeEditor } from "@/components/animate-ui/components/code-editor";
+import { fetchGitHubProfile } from "@/lib/github";
 
 const resumeData = {
   profile: {
@@ -232,6 +231,7 @@ export default function Home() {
   const [expandedProjectDetails, setExpandedProjectDetails] = useState<{
     [key: string]: boolean;
   }>({});
+  const [isTyping, setIsTyping] = useState(false);
 
   const toggleProjectDetails = (projectName: string) => {
     setExpandedProjectDetails((prev) => ({
@@ -240,90 +240,91 @@ export default function Home() {
     }));
   };
 
+  const handleTypingStart = () => {
+    setIsTyping(true);
+  };
+
   return (
     <div className="h-screen bg-background text-foreground transition-colors duration-200">
-      <div className="max-w-4xl mx-auto px-6 pt-10 flex-row">
+      <div className="max-w-4xl mx-auto px-4 pt-10 flex-row">
         {/* Profile Section */}
         <div className="flex items-start justify-between">
-          {/* Profile Card */}
-          <div className="w-fit h-[60vh]">
-            <ProfileCard
-              avatarUrl={resumeData.profile.image}
-              name={resumeData.profileCard.name}
-              // title={resumeData.profileCard.description}
-              handle={resumeData.profileCard.github}
-              status="Available for opportunities"
-              contactText="Contact"
-              showUserInfo={true}
-              className="scale-40 transform-gpu origin-top-left"
-              onContactClick={() => {
-                window.open(
-                  `mailto:${resumeData.profile.contact.email}`,
-                  "_blank"
-                );
-              }}
-            />
+          {/* Profile Image and Info */}
+          <div className="w-fit mr-6">
+            <div className="flex flex-col items-center">
+              <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-blue-500 mb-3">
+                <Image
+                  src={resumeData.profile.image}
+                  alt="Profile"
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
           </div>
           {/* Profile Info */}
 
-          <div className="flex-1 w-full flex flex-col justify-start pt-10 mt-[-34px] ml-[-200px]">
-            <div className="text-center">
-              {/* Contact Info with Emojis */}
-
+          <div className="flex-1 w-full flex flex-col justify-start">
+            <div className="flex flex-col">
+              <h2 className="text-lg font-bold text-foreground mt-2 mb-2">
+                {resumeData.profileCard.name}
+              </h2>
+              <p className="text-md text-muted-foreground mb-2">
+                {resumeData.profileCard.description}
+              </p>
+            </div>
+            <div className="flex gap-2 mb-4">
               <AvatarGroupDemo />
-
-              {/* Education Section */}
-              <div className="w-full mb-6">
-                <h2 className="text-lg font-bold text-foreground mt-4 mb-3 text-left">
-                  Education
-                </h2>
-                <div className="space-y-2">
-                  <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="flex-shrink-0">
-                        <Image
-                          src={resumeData.education.image}
-                          alt="Boston University Logo"
-                          width={120}
-                          height={120}
-                          className="rounded"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-base font-semibold text-foreground">
-                            {resumeData.education.school}
-                          </h3>
-                          <span className="text-xs text-muted-foreground">
-                            {resumeData.education.graduation}
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center mb-2">
-                          <p className="text-xs text-muted-foreground">
-                            {resumeData.education.degree}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {resumeData.education.location}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-2">
-                      <p className="text-xs text-muted-foreground mb-1 text-left">
-                        Courses:
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {resumeData.education.courses.map((course, index) => (
-                          <span
-                            key={index}
-                            className="text-xs bg-accent px-2 py-1 rounded"
-                          >
-                            {course}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+            </div>
+          </div>
+        </div>
+        {/* Education Section */}
+        <div className="w-full mb-6">
+          <div className="space-y-2">
+            <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+              <div className="flex items-start gap-3 mb-2">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={resumeData.education.image}
+                    alt="Boston University Logo"
+                    width={120}
+                    height={120}
+                    className="rounded"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-base font-semibold text-foreground">
+                      {resumeData.education.school}
+                    </h3>
+                    <span className="text-xs text-muted-foreground">
+                      {resumeData.education.graduation}
+                    </span>
                   </div>
+                  <div className="flex justify-between items-center mb-2">
+                    <p className="text-xs text-muted-foreground">
+                      {resumeData.education.degree}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {resumeData.education.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2">
+                <p className="text-xs text-muted-foreground mb-1 text-left">
+                  Courses:
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {resumeData.education.courses.map((course, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-accent px-2 py-1 rounded"
+                    >
+                      {course}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -647,12 +648,7 @@ export default function Home() {
               </div>
             </AccordionContent>
           </AccordionItem>
-        </Accordion>
-        <CodeEditor lang="tsx">
-          {`const a = 1;
-const b = 2;
-const c = a + b;`}
-        </CodeEditor>{" "}
+        </Accordion>{" "}
         {/* Footer */}
         <footer className="text-center text-muted-foreground py-2 border-t border-border">
           <p className="text-xs">
