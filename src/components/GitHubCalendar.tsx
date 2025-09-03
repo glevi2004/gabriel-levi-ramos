@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GitHubCalendar from "react-github-calendar";
 
 interface GitHubCalendarProps {
@@ -13,6 +13,8 @@ export default function GitHubCalendarComponent({
   const [selectedYear, setSelectedYear] = useState<"2025" | "2024" | "all">(
     "all"
   );
+  const [isLoading, setIsLoading] = useState(true);
+  const [isYearLoading, setIsYearLoading] = useState(false);
 
   const getYearProps = () => {
     if (selectedYear === "all") {
@@ -21,13 +23,32 @@ export default function GitHubCalendarComponent({
     return { year: parseInt(selectedYear) };
   };
 
+  const handleYearChange = (year: "2025" | "2024" | "all") => {
+    setIsYearLoading(true);
+    setSelectedYear(year);
+    // Brief delay to show loading state during year transition
+    setIsYearLoading(false);
+    // setTimeout(() => {
+    //   setIsYearLoading(false);
+    // }, 800);
+  };
+
+  // Show loading for a brief moment to simulate calendar loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="w-full mb-6">
+    <div className="w-full mb-6 ">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-bold text-foreground">GitHub Activity</h2>
+        <h2 className="text-lg font-bold">GitHub Activity</h2>
         <div className="flex gap-2">
           <button
-            onClick={() => setSelectedYear("2025")}
+            onClick={() => handleYearChange("2025")}
             className={`px-3 py-1 text-sm rounded-md transition-colors ${
               selectedYear === "2025"
                 ? "bg-blue-600 text-white"
@@ -37,7 +58,7 @@ export default function GitHubCalendarComponent({
             2025
           </button>
           <button
-            onClick={() => setSelectedYear("2024")}
+            onClick={() => handleYearChange("2024")}
             className={`px-3 py-1 text-sm rounded-md transition-colors ${
               selectedYear === "2024"
                 ? "bg-blue-600 text-white"
@@ -47,7 +68,7 @@ export default function GitHubCalendarComponent({
             2024
           </button>
           <button
-            onClick={() => setSelectedYear("all")}
+            onClick={() => handleYearChange("all")}
             className={`px-3 py-1 text-sm rounded-md transition-colors ${
               selectedYear === "all"
                 ? "bg-blue-600 text-white"
@@ -58,8 +79,46 @@ export default function GitHubCalendarComponent({
           </button>
         </div>
       </div>
-      <div className="bg-card border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
-        <div className="overflow-x-auto">
+      <div className="border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
+        {(isLoading || isYearLoading) && (
+          <div className="animate-pulse">
+            <div className="flex items-center justify-between mb-4">
+              <div className="h-4 bg-muted rounded w-24"></div>
+              <div className="h-4 bg-muted rounded w-16"></div>
+            </div>
+            <div className="grid grid-cols-53 gap-1 mb-2">
+              {Array.from({ length: 53 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-3 bg-muted rounded opacity-60"
+                  style={{
+                    opacity: 0.1 + (i % 5) * 0.1,
+                  }}
+                ></div>
+              ))}
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span>Less</span>
+              <div className="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-3 h-3 rounded"
+                    style={{
+                      opacity: (i + 1) * 0.2,
+                    }}
+                  ></div>
+                ))}
+              </div>
+              <span>More</span>
+            </div>
+          </div>
+        )}
+        <div
+          className={`overflow-x-auto ${
+            isLoading || isYearLoading ? "hidden" : "block"
+          }`}
+        >
           <GitHubCalendar username={username} {...getYearProps()} />
         </div>
       </div>

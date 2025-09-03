@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Paperclip, Pyramid, ChevronUp, ChevronDown } from "lucide-react";
 // import ProfileInfo from "@/components/ProfileInfo";
 import { AvatarGroupDemo } from "@/components/AvatarGroup";
@@ -232,26 +232,6 @@ export default function Home() {
     [key: string]: boolean;
   }>({});
   const [isTyping, setIsTyping] = useState(false);
-  const [githubData, setGithubData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchGitHubData = async () => {
-      try {
-        const response = await fetch("/api/github");
-        const data = await response.json();
-        if (data.success) {
-          setGithubData(data.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch GitHub data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGitHubData();
-  }, []);
 
   const toggleProjectDetails = (projectName: string) => {
     setExpandedProjectDetails((prev) => ({
@@ -267,209 +247,94 @@ export default function Home() {
   return (
     <div className="h-screen bg-background text-foreground transition-colors duration-200">
       <div className="max-w-4xl mx-auto px-4 pt-10 flex-row">
-        {/* Profile Section */}
-        <div className="flex items-start justify-between">
-          {/* Profile Image and Info */}
-          <div className="w-fit mr-6">
-            <div className="flex flex-col items-center">
-              <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-blue-500 mb-3">
-                <Image
-                  src={resumeData.profile.image}
-                  alt="Profile"
-                  width={80}
-                  height={80}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-          {/* Profile Info */}
-
-          <div className="flex-1 w-full flex flex-col justify-start">
-            <div className="flex flex-col">
-              <h2 className="text-lg font-bold text-foreground mt-2 mb-2">
-                {resumeData.profileCard.name}
-              </h2>
-              <p className="text-md text-muted-foreground mb-2">
-                {resumeData.profileCard.description}
-              </p>
-            </div>
-            <div className="flex gap-2 mb-4">
-              <AvatarGroupDemo />
-            </div>
-          </div>
-        </div>
-        {/* Education Section */}
-        <div className="w-full mb-6">
-          <div className="space-y-2">
-            <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
-              <div className="flex items-start gap-3 mb-2">
-                <div className="flex-shrink-0">
+        {/* Profile and Education Section - Side by side on large screens */}
+        <div className="flex flex-col lg:flex-row mb-6">
+          {/* Profile Section */}
+          <div className="flex items-start justify-between mr-6">
+            {/* Profile Image and Info */}
+            <div className="w-fit mr-6">
+              <div className="flex flex-col items-center">
+                <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-border mb-3">
                   <Image
-                    src={resumeData.education.image}
-                    alt="Boston University Logo"
-                    width={120}
-                    height={120}
-                    className="rounded"
+                    src={resumeData.profile.image}
+                    alt="Profile"
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="flex-1">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-base font-semibold text-foreground">
-                      {resumeData.education.school}
-                    </h3>
-                    <span className="text-xs text-muted-foreground">
-                      {resumeData.education.graduation}
-                    </span>
+              </div>
+            </div>
+            {/* Profile Info */}
+            <div className="w-full flex flex-col justify-start">
+              <div className="flex flex-col">
+                <h2 className="text-lg font-bold text-foreground mt-2 mb-2">
+                  {resumeData.profileCard.name}
+                </h2>
+                <p className="text-md text-muted-foreground mb-2">
+                  {resumeData.profileCard.description}
+                </p>
+              </div>
+              <div className="flex gap-2 mb-4">
+                <AvatarGroupDemo />
+              </div>
+            </div>
+          </div>
+
+          {/* Education Section */}
+          <div className="w-full">
+            <div className="space-y-2">
+              <div className="bg-card border border-border rounded-lg p-3 hover:shadow-sm transition-shadow">
+                <div className="flex items-start gap-3 mb-2">
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={resumeData.education.image}
+                      alt="Boston University Logo"
+                      width={120}
+                      height={120}
+                      className="rounded"
+                    />
                   </div>
-                  <div className="flex justify-between items-center mb-2">
-                    <p className="text-xs text-muted-foreground">
-                      {resumeData.education.degree}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {resumeData.education.location}
-                    </p>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-base font-semibold text-foreground">
+                        {resumeData.education.school}
+                      </h3>
+                      <span className="text-xs text-muted-foreground">
+                        {resumeData.education.graduation}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="text-xs text-muted-foreground">
+                        {resumeData.education.degree}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {resumeData.education.location}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-2">
-                <p className="text-xs text-muted-foreground mb-1 text-left">
-                  Courses:
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {resumeData.education.courses.map((course, index) => (
-                    <span
-                      key={index}
-                      className="text-xs bg-accent px-2 py-1 rounded"
-                    >
-                      {course}
-                    </span>
-                  ))}
+                <div className="mt-2">
+                  <p className="text-xs text-muted-foreground mb-1 text-left">
+                    Courses:
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {resumeData.education.courses.map((course, index) => (
+                      <span
+                        key={index}
+                        className="text-xs bg-accent px-2 py-1 rounded"
+                      >
+                        {course}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* GitHub Profile Section */}
-        {!loading && githubData && (
-          <div className="w-full mb-6">
-            <h2 className="text-lg font-bold text-foreground mb-3">
-              GitHub Profile
-            </h2>
-            <div className="bg-card border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
-              <div className="flex items-start gap-6">
-                {/* Avatar and Basic Info */}
-                <div className="flex-shrink-0">
-                  <img
-                    src={githubData.profile.avatar_url}
-                    alt={`${githubData.profile.name}'s avatar`}
-                    className="w-24 h-24 rounded-full border-2 border-blue-500"
-                  />
-                </div>
-
-                {/* Profile Details */}
-                <div className="flex-1">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      {githubData.profile.name}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      @{githubData.profile.username}
-                    </p>
-                    {githubData.profile.bio && (
-                      <p className="text-sm text-muted-foreground mt-2">
-                        {githubData.profile.bio}
-                      </p>
-                    )}
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Member since{" "}
-                      {new Date(
-                        githubData.profile.created_at
-                      ).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </div>
-
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-muted/50 rounded-lg">
-                      <div className="text-2xl font-bold text-foreground">
-                        {githubData.profile.public_repos}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Repositories
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-muted/50 rounded-lg">
-                      <div className="text-2xl font-bold text-foreground">
-                        {githubData.profile.followers}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Followers
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-muted/50 rounded-lg">
-                      <div className="text-2xl font-bold text-foreground">
-                        {githubData.profile.following}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Following
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-muted/50 rounded-lg">
-                      <div className="text-2xl font-bold text-foreground">
-                        {githubData.stats.totalContributions}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Total Contributions
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Detailed Stats */}
-                  <div className="mt-6 pt-6 border-t border-border">
-                    <h4 className="text-md font-semibold text-foreground mb-3">
-                      Activity Breakdown
-                    </h4>
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-foreground">
-                          {githubData.stats.totalCommits}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Commits
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-foreground">
-                          {githubData.stats.totalIssues}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Issues
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-foreground">
-                          {githubData.stats.totalPullRequests}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Pull Requests
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
         {/* GitHub Calendar */}
-        {!loading && githubData && (
-          <GitHubCalendarComponent username="glevi2004" />
-        )}
+        <GitHubCalendarComponent username="glevi2004" />
         {/* Work Experience, Projects, and Technical Skills Accordion */}
         <Accordion type="single" collapsible className="w-full mb-4">
           <AccordionItem value="experience">
