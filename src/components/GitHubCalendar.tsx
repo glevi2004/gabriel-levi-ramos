@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import GitHubCalendar from "react-github-calendar";
 
 interface GitHubCalendarProps {
@@ -10,6 +11,7 @@ interface GitHubCalendarProps {
 export default function GitHubCalendarComponent({
   username,
 }: GitHubCalendarProps) {
+  const { theme } = useTheme();
   const [selectedYear, setSelectedYear] = useState<"2025" | "2024" | "all">(
     "all"
   );
@@ -79,13 +81,9 @@ export default function GitHubCalendarComponent({
           </button>
         </div>
       </div>
-      <div className="border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
+      <div className="bg-card border border-border rounded-lg p-6 hover:shadow-sm transition-shadow">
         {(isLoading || isYearLoading) && (
           <div className="animate-pulse">
-            <div className="flex items-center justify-between mb-4">
-              <div className="h-4 bg-muted rounded w-24"></div>
-              <div className="h-4 bg-muted rounded w-16"></div>
-            </div>
             <div className="grid grid-cols-53 gap-1 mb-2">
               {Array.from({ length: 53 }).map((_, i) => (
                 <div
@@ -103,7 +101,7 @@ export default function GitHubCalendarComponent({
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div
                     key={i}
-                    className="w-3 h-3 rounded"
+                    className="w-3 h-3 bg-muted rounded"
                     style={{
                       opacity: (i + 1) * 0.2,
                     }}
@@ -119,7 +117,15 @@ export default function GitHubCalendarComponent({
             isLoading || isYearLoading ? "hidden" : "block"
           }`}
         >
-          <GitHubCalendar username={username} {...getYearProps()} />
+          <GitHubCalendar
+            username={username}
+            {...getYearProps()}
+            colorScheme={theme === "dark" ? "dark" : "light"}
+            theme={{
+              light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+              dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+            }}
+          />
         </div>
       </div>
     </div>

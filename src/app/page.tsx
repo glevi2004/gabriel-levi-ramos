@@ -106,16 +106,16 @@ const resumeData = {
       details:
         "Built using Next.js, TypeScript, Firebase, and integrated with Stripe for payments. Provides companies with their own public/private feedback collection platform, featuring Kanban board workflow management to streamline feedback into deployed features.",
     },
-    {
-      name: "Clipy AI",
-      website: "https://clipy.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/clipy",
-      tech: "NextJS | OpenAI | PostgreSQL | Supabase",
-      description:
-        "AI-powered viral short content video generator for engaging social media content.",
-      details:
-        "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent content generation, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured AI-driven video creation tools for generating viral short-form content.",
-    },
+    // {
+    //   name: "Clipy AI",
+    //   website: "https://clipy.vercel.app/",
+    //   sourceCode: "https://github.com/glevi2004/clipy",
+    //   tech: "NextJS | OpenAI | PostgreSQL | Supabase",
+    //   description:
+    //     "AI-powered viral short content video generator for engaging social media content.",
+    //   details:
+    //     "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent content generation, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured AI-driven video creation tools for generating viral short-form content.",
+    // },
     {
       name: "Alan AI",
       website: "https://alan-ai.vercel.app/",
@@ -137,56 +137,56 @@ const resumeData = {
       details:
         "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent summarization and organization, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured voice-to-text capabilities and AI-driven note organization.",
     },
-    {
-      name: "Grantly AI",
-      website: "https://grantly.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/grantly",
-      tech: "NextJS | TypeScript | PostgreSQL | Supabase",
-      description:
-        "Grant discovery and application platform eliminating the need for expensive consultants.",
-      details:
-        "Built a comprehensive grant discovery and application platform using Next.js and TypeScript. The application streamlines the complex grant application process, providing searchable databases, application tracking, and automated workflows to help organizations secure funding without relying on costly consulting services.",
-    },
-    {
-      name: "Draw Yo",
-      website: "https://draw-yo.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/draw-yo",
-      tech: "NextJS | TypeScript | Canvas API | WebRTC",
-      description:
-        "Virtual whiteboard for sketching diagrams and real-time collaboration - cheaper than Excalidraw and draw.io.",
-      details:
-        "Developed an interactive virtual whiteboard application using Next.js and TypeScript. Integrated Canvas API for drawing functionality and WebRTC for real-time collaboration. The platform enables users to create hand-drawn diagrams, brainstorm ideas, and work together in an intuitive, approachable interface. Positioned as a budget-friendly alternative to premium diagramming tools like Excalidraw and draw.io.",
-    },
-    {
-      name: "Git Streaks",
-      website: "https://gitstreaks.app/",
-      sourceCode: "https://github.com/glevi2004/git-streaks",
-      tech: "NextJS | TypeScript | GitHub API | GitLab API | PostgreSQL",
-      description:
-        "GitHub/GitLab integration that calculates user streaks and sends motivational messages to keep users coding.",
-      details:
-        "Built a streak tracking application that connects to GitHub and GitLab APIs to calculate user contribution streaks. Integrated messaging system to send motivational notifications and reminders to users, helping them maintain consistent coding habits and build momentum in their development journey.",
-    },
-    {
-      name: "YourGPT",
-      website: "https://yourgpt.app/",
-      sourceCode: "https://github.com/glevi2004/yourgpt",
-      tech: "NextJS | TypeScript | OpenAI | PostgreSQL | Subdomain Hosting",
-      description:
-        "Platform for creating custom chatbot webpages to gather information from users for interviews, support, and more.",
-      details:
-        "Developed a SaaS platform where users can create and customize chatbot webpages with specific instructions. The chatbots are hosted on subdomains and collect conversation data from visitors. Users get a dashboard to view gathered information, analytics, and insights from their chatbot interactions.",
-    },
-    {
-      name: "FlightReels",
-      website: "https://flightreels.app/",
-      sourceCode: "https://github.com/glevi2004/flightreels",
-      tech: "NextJS | TypeScript | React Native | Offline Storage | Video Processing",
-      description:
-        "Offline short-form content app for downloading and watching TikTok, Instagram Reels, and YouTube Shorts during flights.",
-      details:
-        "Built a cross-platform application that allows users to download short-form videos from popular social media platforms for offline viewing. The app features video processing, offline storage management, and a familiar reels-style interface optimized for travel scenarios where internet connectivity is limited.",
-    },
+    // {
+    //   name: "Grantly AI",
+    //   website: "https://grantly.vercel.app/",
+    //   sourceCode: "https://github.com/glevi2004/grantly",
+    //   tech: "NextJS | TypeScript | PostgreSQL | Supabase",
+    //   description:
+    //     "Grant discovery and application platform eliminating the need for expensive consultants.",
+    //   details:
+    //     "Built a comprehensive grant discovery and application platform using Next.js and TypeScript. The application streamlines the complex grant application process, providing searchable databases, application tracking, and automated workflows to help organizations secure funding without relying on costly consulting services.",
+    // },
+    // {
+    //   name: "Draw Yo",
+    //   website: "https://draw-yo.vercel.app/",
+    //   sourceCode: "https://github.com/glevi2004/draw-yo",
+    //   tech: "NextJS | TypeScript | Canvas API | WebRTC",
+    //   description:
+    //     "Virtual whiteboard for sketching diagrams and real-time collaboration - cheaper than Excalidraw and draw.io.",
+    //   details:
+    //     "Developed an interactive virtual whiteboard application using Next.js and TypeScript. Integrated Canvas API for drawing functionality and WebRTC for real-time collaboration. The platform enables users to create hand-drawn diagrams, brainstorm ideas, and work together in an intuitive, approachable interface. Positioned as a budget-friendly alternative to premium diagramming tools like Excalidraw and draw.io.",
+    // },
+    // {
+    //   name: "Git Streaks",
+    //   website: "https://gitstreaks.app/",
+    //   sourceCode: "https://github.com/glevi2004/git-streaks",
+    //   tech: "NextJS | TypeScript | GitHub API | GitLab API | PostgreSQL",
+    //   description:
+    //     "GitHub/GitLab integration that calculates user streaks and sends motivational messages to keep users coding.",
+    //   details:
+    //     "Built a streak tracking application that connects to GitHub and GitLab APIs to calculate user contribution streaks. Integrated messaging system to send motivational notifications and reminders to users, helping them maintain consistent coding habits and build momentum in their development journey.",
+    // },
+    // {
+    //   name: "YourGPT",
+    //   website: "https://yourgpt.app/",
+    //   sourceCode: "https://github.com/glevi2004/yourgpt",
+    //   tech: "NextJS | TypeScript | OpenAI | PostgreSQL | Subdomain Hosting",
+    //   description:
+    //     "Platform for creating custom chatbot webpages to gather information from users for interviews, support, and more.",
+    //   details:
+    //     "Developed a SaaS platform where users can create and customize chatbot webpages with specific instructions. The chatbots are hosted on subdomains and collect conversation data from visitors. Users get a dashboard to view gathered information, analytics, and insights from their chatbot interactions.",
+    // },
+    // {
+    //   name: "FlightReels",
+    //   website: "https://flightreels.app/",
+    //   sourceCode: "https://github.com/glevi2004/flightreels",
+    //   tech: "NextJS | TypeScript | React Native | Offline Storage | Video Processing",
+    //   description:
+    //     "Offline short-form content app for downloading and watching TikTok, Instagram Reels, and YouTube Shorts during flights.",
+    //   details:
+    //     "Built a cross-platform application that allows users to download short-form videos from popular social media platforms for offline viewing. The app features video processing, offline storage management, and a familiar reels-style interface optimized for travel scenarios where internet connectivity is limited.",
+    // },
   ],
   skills: {
     languages: [
