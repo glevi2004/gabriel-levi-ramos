@@ -12,6 +12,7 @@ export default function GitHubCalendarComponent({
   username,
 }: GitHubCalendarProps) {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [selectedYear, setSelectedYear] = useState<"2025" | "2024" | "all">(
     "all"
   );
@@ -34,6 +35,11 @@ export default function GitHubCalendarComponent({
     //   setIsYearLoading(false);
     // }, 800);
   };
+
+  // Prevent hydration mismatch by only rendering after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Show loading for a brief moment to simulate calendar loading
   useEffect(() => {
@@ -117,15 +123,17 @@ export default function GitHubCalendarComponent({
             isLoading || isYearLoading ? "hidden" : "block"
           }`}
         >
-          <GitHubCalendar
-            username={username}
-            {...getYearProps()}
-            colorScheme={theme === "dark" ? "dark" : "light"}
-            theme={{
-              light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
-              dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
-            }}
-          />
+          {mounted && (
+            <GitHubCalendar
+              username={username}
+              {...getYearProps()}
+              colorScheme={theme === "dark" ? "dark" : "light"}
+              theme={{
+                light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+                dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

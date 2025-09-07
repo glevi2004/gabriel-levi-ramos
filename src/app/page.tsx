@@ -6,6 +6,7 @@ import { Paperclip, Pyramid, ChevronUp, ChevronDown } from "lucide-react";
 // import ProfileInfo from "@/components/ProfileInfo";
 import { AvatarGroupDemo } from "@/components/AvatarGroup";
 import GitHubCalendarComponent from "@/components/GitHubCalendar";
+import HourglassLogo from "@/components/HourglassLogo";
 import {
   Accordion,
   AccordionItem,
@@ -116,16 +117,16 @@ const resumeData = {
     //   details:
     //     "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent content generation, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured AI-driven video creation tools for generating viral short-form content.",
     // },
-    {
-      name: "Alan AI",
-      website: "https://alan-ai.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/alan-ai",
-      tech: "NextJS | OpenAI | LangChain | TypeScript",
-      description:
-        "AI agent personal assistant that performs tasks and interacts with your applications.",
-      details:
-        "Built an intelligent AI assistant using Next.js and TypeScript, integrated OpenAI's GPT models through LangChain for natural language processing, and designed a system that can understand user requests and execute tasks across different applications and services.",
-    },
+    // {
+    //   name: "Alan AI",
+    //   website: "https://alan-ai.vercel.app/",
+    //   sourceCode: "https://github.com/glevi2004/alan-ai",
+    //   tech: "NextJS | OpenAI | LangChain | TypeScript",
+    //   description:
+    //     "AI agent personal assistant that performs tasks and interacts with your applications.",
+    //   details:
+    //     "Built an intelligent AI assistant using Next.js and TypeScript, integrated OpenAI's GPT models through LangChain for natural language processing, and designed a system that can understand user requests and execute tasks across different applications and services.",
+    // },
     {
       name: "Talking Notes",
       website: "https://talking-notes.vercel.app/",
@@ -136,6 +137,16 @@ const resumeData = {
         "AI-powered notetaking app with voice-to-text and intelligent organization.",
       details:
         "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent summarization and organization, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured voice-to-text capabilities and AI-driven note organization.",
+    },
+    {
+      name: "10,000 Hours",
+      website: "https://tenthousandhours.vercel.app/",
+      sourceCode: "https://github.com/glevi2004/focus-timer",
+      tech: "NextJS | MongoDB | Mongoose | TypeScript | JWT",
+      description:
+        "Fullstack application for tracking progress towards 10,000 hours of mastery in any field.",
+      details:
+        "Built a comprehensive skill tracking platform using Next.js and TypeScript. Implemented secure user authentication with JWT tokens and bcrypt password hashing, designed MongoDB schemas with Mongoose for efficient data management, and created an intuitive interface for users to log practice sessions, track progress, and visualize their journey to mastery.",
     },
     // {
     //   name: "Grantly AI",
@@ -255,13 +266,15 @@ export default function Home() {
               {/* Profile Image and Info */}
               <div className="w-fit mr-6">
                 <div className="flex flex-col items-center">
-                  <div className="w-30 h-30 rounded-full overflow-hidden border-2 border-border mb-3">
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-border mb-3">
                     <Image
                       src={resumeData.profile.image}
                       alt="Profile"
-                      width={80}
-                      height={80}
+                      width={128}
+                      height={128}
                       className="w-full h-full object-cover"
+                      quality={95}
+                      priority
                     />
                   </div>
                 </div>
@@ -405,7 +418,7 @@ export default function Home() {
               Projects
             </AccordionTrigger>
             <AccordionContent>
-              <div className="flex gap-4">
+              <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1 space-y-4">
                   {resumeData.projects
                     .filter((_, index) => index % 2 === 0)
@@ -437,6 +450,8 @@ export default function Home() {
                                 <Pyramid className="h-8 w-8" />
                               </div>
                             </div>
+                          ) : project.name === "10,000 Hours" ? (
+                            <HourglassLogo size={56} />
                           ) : null}
                           <div className="flex-1">
                             <div className="flex justify-between items-start mb-2">
@@ -529,6 +544,8 @@ export default function Home() {
                                 <Pyramid className="h-8 w-8" />
                               </div>
                             </div>
+                          ) : project.name === "10,000 Hours" ? (
+                            <HourglassLogo size={56} />
                           ) : null}
                           <div className="flex-1">
                             <div className="flex justify-between items-start mb-2">
