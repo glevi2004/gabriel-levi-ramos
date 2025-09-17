@@ -37,11 +37,14 @@ const resumeData = {
     location: "Boston, MA",
     image: "/bu.png",
     courses: [
-      "Software Engineering Practice",
-      "Applied Machine Learning",
       "Operating Systems",
-      "Computer Architecture",
-      "Model-Based Programming",
+      "Analysis of Algorithms",
+      "Combinatoric Structures",
+      "Geometric Algorithms",
+      "Theory of Computation",
+      "Intro to Databases",
+      "Software Engineering",
+      "Full Stack Development",
     ],
   },
   experience: [
