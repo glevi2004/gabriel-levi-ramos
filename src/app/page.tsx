@@ -48,7 +48,7 @@ const resumeData = {
     {
       company: "Find Me",
       position: "Fullstack Software Engineer Intern",
-      duration: "May 2024 -- Sep 2024",
+      duration: "May 2025 -- July 2025",
       location: "Remote",
       image: "/find-me.png",
       achievements: [
@@ -60,7 +60,7 @@ const resumeData = {
     {
       company: "Esurgi, Inc.",
       position: "Software Engineer Intern (WebApp, iOS)",
-      duration: "May 2023 -- Sep 2023",
+      duration: "Jan 2025 -- Jun 2025",
       location: "Remote",
       image: "/esurgi.png",
       achievements: [
@@ -73,7 +73,7 @@ const resumeData = {
     {
       company: "Ernst & Young",
       position: "Software Engineer Intern",
-      duration: "Jun 2022 -- Sep 2022",
+      duration: "May 2024 -- Aug 2024",
       location: "Location",
       image: "/ernst.png",
       achievements: [
