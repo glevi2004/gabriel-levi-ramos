@@ -54,8 +54,7 @@ const resumeData = {
       achievements: [
         "Designed and implemented a centralized logging and monitoring system for the company's Express.js backend using Prometheus and Grafana, orchestrated with Docker Compose.",
         "Developed and deployed RESTful APIs for backend services and microservices with Express.js, integrating JWT-based authentication, validating endpoints with Postman, and ensuring reliability through unit tests in Jest.",
-        "Reviewed and merged 10+ GitLab pull requests, providing feedback, maintaining code quality standards, and improving team collaboration during development cycles.",
-        "Architected and presented a scalable followers and connections microservice using Azure Functions, enabling cloud-native functionality and laying the foundation for the platform's social features.",
+        "Architected and deployed a scalable followers and connections microservice by combining Express.js for API logicwith Azure Functions for serverless cloud execution",
       ],
     },
     {
@@ -78,24 +77,12 @@ const resumeData = {
       location: "Location",
       image: "/ernst.png",
       achievements: [
-        "Contributed to CRM and ERP implementation using JavaScript and Elasticsearch; retrieved, tested, and validated data from RESTful APIs with Postman.",
-        "Automated accounting workflows with Python, utilizing libraries such as NumPy, pandas, Matplotlib, openpyxl, and requests to streamline reporting and analysis.",
-        "Processed JSON data into Excel files for financial reporting, supporting client IPO readiness, containerized and deployed solutions in Docker for scalability.",
+        "Built customer identity and credit card verification service with JavaScript, tested and documented RESTful APIs with Postman and Swagger",
+        "Automated accounting workflows for client’s IPO readiness with Python, NumPy, pandas, Matplotlib, openpyxl, and requests libraries, and deployed solutions in Docker for scalability.",
       ],
     },
   ],
   projects: [
-    {
-      name: "Slakr",
-      website: "https://slakr.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/slakr",
-      tech: "React Native | Expo | PostgreSQL | Supabase",
-      image: "/slakr.png",
-      description:
-        "AI-powered social learning platform that gamifies studying with streaks and accountability.",
-      details:
-        "Led mobile app development with React Native and Expo, integrated OpenAI API for personalized study goals, managed user data and authentication through Supabase, and structured relational data in PostgreSQL.",
-    },
     {
       name: "Feature Ship",
       website: "https://featureflow.vercel.app/",
@@ -107,16 +94,40 @@ const resumeData = {
       details:
         "Built using Next.js, TypeScript, Firebase, and integrated with Stripe for payments. Provides companies with their own public/private feedback collection platform, featuring Kanban board workflow management to streamline feedback into deployed features.",
     },
-    // {
-    //   name: "Clipy AI",
-    //   website: "https://clipy.vercel.app/",
-    //   sourceCode: "https://github.com/glevi2004/clipy",
-    //   tech: "NextJS | OpenAI | PostgreSQL | Supabase",
-    //   description:
-    //     "AI-powered viral short content video generator for engaging social media content.",
-    //   details:
-    //     "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent content generation, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured AI-driven video creation tools for generating viral short-form content.",
-    // },
+    {
+      name: "Clipy AI",
+      website: "https://clipy.vercel.app/",
+      sourceCode: "https://github.com/glevi2004/clipy-ai",
+      tech: "NextJS | OpenAI | PostgreSQL | Supabase",
+      description:
+        "AI-powered viral short content video generator for engaging social media content.",
+      details:
+        "Built with Next.js , Firebase database (Firestore), and video storage, OpenAI GPT-4.5 for AI script generation, and FAL AI Seedance API for video creation. TypeScript for type safety, Tailwind CSS for styling, and Radix UI components for the user interface.",
+    },
+    {
+      name: "Grant Finder AI",
+      sourceCode: "https://github.com/XC475",
+      tech: "Flask | Next.js | LangGraph | LangChain | LangFlow | Pinecone",
+      // image: "/featureship.png",
+      description:
+        "AI-powered tool to help public school districts streamline their grant lifecycle: from discovering relevant funding opportunities to managing application workflows",
+      details: [
+        "Built the AI Agent API service using Next.js API routes, integrating specialized AI agents: Search Agent, and a Writer Agent, powered by LangChain, LangGraph, LangFlow, and n8n.",
+        "Developed a RAG pipeline with Pinecone DB and OpenAI 3.5 Mini embeddings to store and retrieve user files.",
+        "Integrated the service into the frontend with Next.js and ShadCN Chatbot Kit, enabling real-time conversational interactions with the AI agents.",
+      ],
+    },
+    {
+      name: "Slakr",
+      website: "https://slakr.vercel.app/",
+      sourceCode: "https://github.com/glevi2004/slakr",
+      tech: "React Native | Expo | PostgreSQL | Supabase",
+      image: "/slakr.png",
+      description:
+        "AI-powered social learning platform that gamifies studying with streaks and accountability.",
+      details:
+        "Led mobile app development with React Native and Expo, integrated OpenAI API for personalized study goals, managed user data and authentication through Supabase, and structured relational data in PostgreSQL.",
+    },
     // {
     //   name: "Alan AI",
     //   website: "https://alan-ai.vercel.app/",
@@ -127,17 +138,17 @@ const resumeData = {
     //   details:
     //     "Built an intelligent AI assistant using Next.js and TypeScript, integrated OpenAI's GPT models through LangChain for natural language processing, and designed a system that can understand user requests and execute tasks across different applications and services.",
     // },
-    {
-      name: "Talking Notes",
-      website: "https://talking-notes.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/talking-notes",
-      tech: "NextJS | OpenAI | PostgreSQL | Supabase",
-      image: "/talkingnotes.png",
-      description:
-        "AI-powered notetaking app with voice-to-text and intelligent organization.",
-      details:
-        "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent summarization and organization, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured voice-to-text capabilities and AI-driven note organization.",
-    },
+    // {
+    //   name: "Talking Notes",
+    //   website: "https://talking-notes-three.vercel.app/",
+    //   sourceCode: "https://github.com/glevi2004/talking-notes",
+    //   tech: "NextJS | OpenAI | PostgreSQL | Supabase",
+    //   image: "/talkingnotes.png",
+    //   description:
+    //     "AI-powered notetaking app with voice-to-text and intelligent organization.",
+    //   details:
+    //     "Developed a Next.js application with TypeScript, integrated OpenAI API for intelligent summarization and organization, and managed user data and authentication through Supabase. PostgreSQL was used for data persistence, and the application featured voice-to-text capabilities and AI-driven note organization.",
+    // },
     {
       name: "10,000 Hours",
       website: "https://tenthousandhours.vercel.app/",

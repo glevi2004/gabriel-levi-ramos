@@ -9,21 +9,25 @@ const AVATARS = [
     src: "/socials/github.png",
     fallback: "SK",
     tooltip: "Github",
+    href: "https://github.com/glevi2004",
   },
   {
     src: "/socials/linkedin.png",
     fallback: "CN",
     tooltip: "Linkedin",
+    href: "https://linkedin.com/in/gabrielleviramos",
   },
   {
     src: "/socials/insta.png",
     fallback: "AW",
     tooltip: "Instagram",
+    href: "#", // Add your Instagram URL here
   },
   {
     src: "/socials/x.png",
     fallback: "X",
     tooltip: "X",
+    href: "#", // Add your X/Twitter URL here
   },
 ];
 
@@ -34,13 +38,21 @@ export const AvatarGroupDemo = () => {
       tooltipProps={{ side: "top", sideOffset: 8 }}
     >
       {AVATARS.map((avatar, index) => (
-        <Avatar key={index} className="size-12 border-3 border-background">
-          <AvatarImage src={avatar.src} />
-          <AvatarFallback>{avatar.fallback}</AvatarFallback>
-          <AvatarGroupTooltip>
-            <p>{avatar.tooltip}</p>
-          </AvatarGroupTooltip>
-        </Avatar>
+        <a
+          key={index}
+          href={avatar.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-transform hover:scale-110"
+        >
+          <Avatar className="size-12 border-3 border-background cursor-pointer">
+            <AvatarImage src={avatar.src} />
+            <AvatarFallback>{avatar.fallback}</AvatarFallback>
+            <AvatarGroupTooltip>
+              <p>{avatar.tooltip}</p>
+            </AvatarGroupTooltip>
+          </Avatar>
+        </a>
       ))}
     </AvatarGroup>
   );
