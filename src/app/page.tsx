@@ -87,7 +87,7 @@ const resumeData = {
       name: "Feature Ship",
       website: "https://featureflow.vercel.app/",
       sourceCode: "https://github.com/glevi2004/feature-flow",
-      tech: "NextJS | Firebase | Stripe",
+      tech: "Typescript | NextJS | Firebase",
       image: "/featureship.png",
       description:
         "Feature request and feedback management platform with Kanban workflow for software companies.",
