@@ -14,7 +14,7 @@ export default function GitHubCalendarComponent({
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [selectedYear, setSelectedYear] = useState<"2025" | "2024" | "all">(
-    "all"
+    "2025"
   );
   const [isLoading, setIsLoading] = useState(true);
   const [isYearLoading, setIsYearLoading] = useState(false);

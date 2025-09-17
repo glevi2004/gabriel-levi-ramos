@@ -15,26 +15,26 @@ const AVATARS = [
     src: "/socials/linkedin.png",
     fallback: "CN",
     tooltip: "Linkedin",
-    href: "https://linkedin.com/in/gabrielleviramos",
+    href: "https://www.linkedin.com/in/gabrielleviramos/",
   },
-  {
-    src: "/socials/insta.png",
-    fallback: "AW",
-    tooltip: "Instagram",
-    href: "#", // Add your Instagram URL here
-  },
-  {
-    src: "/socials/x.png",
-    fallback: "X",
-    tooltip: "X",
-    href: "#", // Add your X/Twitter URL here
-  },
+  // {
+  //   src: "/socials/insta.png",
+  //   fallback: "AW",
+  //   tooltip: "Instagram",
+  //   href: "#", // Add your Instagram URL here
+  // },
+  // {
+  //   src: "/socials/x.png",
+  //   fallback: "X",
+  //   tooltip: "X",
+  //   href: "#", // Add your X/Twitter URL here
+  // },
 ];
 
 export const AvatarGroupDemo = () => {
   return (
     <AvatarGroup
-      className="h-12 -space-x-3"
+      className="h-12 -space-x-3 min-w-[10vw]"
       tooltipProps={{ side: "top", sideOffset: 8 }}
     >
       {AVATARS.map((avatar, index) => (

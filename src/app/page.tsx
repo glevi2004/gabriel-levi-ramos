@@ -283,7 +283,7 @@ export default function Home() {
                       alt="Profile"
                       width={128}
                       height={128}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                       quality={95}
                       priority
                     />
@@ -317,9 +317,9 @@ export default function Home() {
                     <Image
                       src={resumeData.education.image}
                       alt="Boston University Logo"
-                      width={120}
-                      height={120}
-                      className="rounded"
+                      width={100}
+                      height={45}
+                      className="rounded object-contain"
                     />
                   </div>
                   <div className="flex-1">
