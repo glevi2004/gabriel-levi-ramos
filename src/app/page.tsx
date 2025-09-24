@@ -99,7 +99,6 @@ const resumeData = {
     },
     {
       name: "Clipy AI",
-      website: "https://clipy.vercel.app/",
       sourceCode: "https://github.com/glevi2004/clipy-ai",
       tech: "NextJS | OpenAI | PostgreSQL | Supabase",
       description:
