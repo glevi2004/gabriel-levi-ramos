@@ -87,15 +87,32 @@ const resumeData = {
   ],
   projects: [
     {
+      name: "GrantWare AI",
+      website: "https://grantware.vercel.app/",
+      sourceCode: "https://github.com/XC475",
+      tech: "Python | Next.js | LangGraph | LangChain | LangFlow | RAG",
+      // image: "/featureship.png",
+      description:
+        "AI-powered platform to help school districts streamline their grant lifecycle: from discovering relevant funding opportunities to managing and writing applications",
+      details: [
+        "Built a Python grant data scraping pipeline using Beautiful Soup, Selenium, Firecrawl, and the OpenAI API, managed with Pipenv and deployed via GitHub Actions for automated data collection and processing.",
+        "Built an AI Agent API with Next.js API routes, integrating specialized AI agents: Search Agent, and a Writer Agent, powered by LangChain, LangGraph, LangFlow, and n8n.",
+        "Developed a RAG pipeline with Supabase Vector Store DB and OpenAI 3.5 Mini embeddings to store and retrieve user files.",
+        "Mentored by Red Hat engineers with project funding of $8,000 through the Red Hat Collaboratory at Boston University.",
+      ],
+    },
+    {
       name: "Feature Ship",
       website: "https://featureflow.vercel.app/",
       sourceCode: "https://github.com/glevi2004/feature-flow",
       tech: "Typescript | NextJS | Firebase",
       image: "/featureship.png",
       description:
-        "Feature request and feedback management platform with Kanban workflow for software companies.",
-      details:
-        "Built using Next.js, TypeScript, Firebase, and integrated with Stripe for payments. Provides companies with their own public/private feedback collection platform, featuring Kanban board workflow management to streamline feedback into deployed features.",
+        "Feature and feedback management platform, with Kanban board to streamline feedback into features.",
+      details: [
+        "Built using Next.js, TypeScript, and Firebase. Integrated Stripe for payments. Provides companies with their own public/private feedback collection platform, featuring Kanban board workflow management to streamline feedback into deployed features.",
+        "Built with Firebase for database and CRUD operations. Used React.js and ShadCN for user interface, Next.js for server side logic and APIs, and implemented Google/Github OAuth for user authentication.",
+      ],
     },
     {
       name: "Clipy AI",
@@ -107,22 +124,9 @@ const resumeData = {
         "Built with Next.js , Firebase database (Firestore), and video storage, OpenAI GPT-4.5 for AI script generation, and FAL AI Seedance API for video creation. TypeScript for type safety, Tailwind CSS for styling, and Radix UI components for the user interface.",
     },
     {
-      name: "Grant Finder AI",
-      sourceCode: "https://github.com/XC475",
-      tech: "Flask | Next.js | LangGraph | LangChain | LangFlow | Pinecone",
-      // image: "/featureship.png",
-      description:
-        "AI-powered tool to help public school districts streamline their grant lifecycle: from discovering relevant funding opportunities to managing application workflows",
-      details: [
-        "Built the AI Agent API service using Next.js API routes, integrating specialized AI agents: Search Agent, and a Writer Agent, powered by LangChain, LangGraph, LangFlow, and n8n.",
-        "Developed a RAG pipeline with Pinecone DB and OpenAI 3.5 Mini embeddings to store and retrieve user files.",
-        "Integrated the service into the frontend with Next.js and ShadCN Chatbot Kit, enabling real-time conversational interactions with the AI agents.",
-      ],
-    },
-    {
       name: "Slakr",
       website: "https://slakr.vercel.app/",
-      sourceCode: "https://github.com/glevi2004/slakr",
+      sourceCode: "https://github.com/glevi2004/slakr-ai",
       tech: "React Native | Expo | PostgreSQL | Supabase",
       image: "/slakr.png",
       description:
@@ -216,18 +220,18 @@ const resumeData = {
     languages: [
       "Python",
       "Java",
+      "Swift",
       "JavaScript",
       "TypeScript",
       "SQL",
-      "HTML5",
+      "XML",
+      "HTML",
       "CSS",
       "C",
     ],
     developerTools: [
-      "Linux",
-      "Unix",
-      "Azure",
       "Postman",
+      "Swagger",
       "Docker",
       "Github",
       "Gitlab",
@@ -235,6 +239,8 @@ const resumeData = {
       "MongoDB",
       "Supabase",
       "Figma",
+      "Azure",
+      "AWS",
     ],
     librariesFrameworks: [
       "ExpressJS",
@@ -245,8 +251,16 @@ const resumeData = {
       "Expo",
       "Django",
       "Flask",
+      "FastAPI",
       "PostgreSQL",
+      "BeautifulSoup",
+      "Selenium",
+      "Firecrawl",
       "TailwindCSS",
+      "ShadCN",
+      "Material UI",
+      "LangChain",
+      "LangGraph",
     ],
   },
 };
@@ -357,6 +371,29 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
+                </div>
+                <div className="mt-4">
+                  <a
+                    href="/Resume.pdf"
+                    download="Gabriel_Levi_Ramos_Resume.pdf"
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-colors text-sm font-medium"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Download Resume
+                  </a>
                 </div>
               </div>
             </div>
@@ -500,9 +537,24 @@ export default function Home() {
                             </p>
                             {expandedProjectDetails[project.name] && (
                               <div className="mt-2">
-                                <p className="text-xs text-muted-foreground leading-tight">
-                                  {project.details}
-                                </p>
+                                <ul className="text-xs text-muted-foreground leading-tight space-y-1">
+                                  {Array.isArray(project.details) ? (
+                                    project.details.map((detail, index) => (
+                                      <li
+                                        key={index}
+                                        className="flex items-start"
+                                      >
+                                        <span className="mr-2">•</span>
+                                        <span>{detail}</span>
+                                      </li>
+                                    ))
+                                  ) : (
+                                    <li className="flex items-start">
+                                      <span className="mr-2">•</span>
+                                      <span>{project.details}</span>
+                                    </li>
+                                  )}
+                                </ul>
                               </div>
                             )}
                             <button
@@ -594,9 +646,24 @@ export default function Home() {
                             </p>
                             {expandedProjectDetails[project.name] && (
                               <div className="mt-2">
-                                <p className="text-xs text-muted-foreground leading-tight">
-                                  {project.details}
-                                </p>
+                                <ul className="text-xs text-muted-foreground leading-tight space-y-1">
+                                  {Array.isArray(project.details) ? (
+                                    project.details.map((detail, index) => (
+                                      <li
+                                        key={index}
+                                        className="flex items-start"
+                                      >
+                                        <span className="mr-2">•</span>
+                                        <span>{detail}</span>
+                                      </li>
+                                    ))
+                                  ) : (
+                                    <li className="flex items-start">
+                                      <span className="mr-2">•</span>
+                                      <span>{project.details}</span>
+                                    </li>
+                                  )}
+                                </ul>
                               </div>
                             )}
                             <button
