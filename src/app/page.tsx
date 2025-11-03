@@ -49,8 +49,23 @@ const resumeData = {
   },
   experience: [
     {
+      company: "GrantWare AI",
+      position: "Co-Founder & CTO",
+      duration: "Sept 2025 -- Present",
+      location: "Boston, MA",
+      image: "/grantware.jpeg",
+      website: "https://www.grantware.ai/",
+      achievements: [
+        "AI-powered platform to help school districts streamline their grant lifecycle: from discovering relevant funding opportunities to managing and writing applications.",
+        "Built a Python grant data scraping pipeline with Firecrawl, deployed via GitHub Actions.",
+        "Built an AI Agent API with Next.js API routes, integrating specialized AI agents: Search Agent, and a Writer Agent, powered by LangChain, LangGraph, LangFlow, and n8n.",
+        "Developed a RAG pipeline with Supabase Vector Store DB and OpenAI 3.5 Mini embeddings to store and retrieve user files.",
+        "Mentored by Red Hat engineers with project funding of $8,000 through the Red Hat Collaboratory at BostonUniversity.",
+      ],
+    },
+    {
       company: "Find Me",
-      position: "Fullstack Software Engineer Intern",
+      position: "Fullstack Software Developer",
       duration: "May 2025 -- July 2025",
       location: "Remote",
       image: "/find-me.png",
@@ -62,15 +77,14 @@ const resumeData = {
     },
     {
       company: "Esurgi, Inc.",
-      position: "Software Engineer Intern (WebApp, iOS)",
+      position: "Software Engineer (WebApp, iOS)",
       duration: "Jan 2025 -- Jun 2025",
       location: "Remote",
       image: "/esurgi.png",
       achievements: [
-        "Led team of three interns to refactor the company's React.js web application into Next.js, leveraging Firebase, Google OAuth, Material UI, Styled Components, and ensuring reliability with Jest unit/integration testing.",
+        "Led development team to refactor the company's React.js web application into Next.js, leveraging Firebase, Google OAuth, Material UI, Styled Components, and ensuring reliability with Jest unit/integration testing.",
         "Implemented CI/CD pipelines for both the web and iOS applications using GitHub Actions, streamlining deployments and reducing release times by 90%.",
         "Developed and integrated iOS app components with Swift and SwiftUI, contributing to cross-platform feature parity.",
-        "Reviewed and merged 20+ PRs/MRs and documented 10,000+ lines of JavaScript code for the web application, improving maintainability and onboarding efficiency.",
       ],
     },
     {
@@ -86,21 +100,6 @@ const resumeData = {
     },
   ],
   projects: [
-    {
-      name: "GrantWare AI",
-      website: "https://grantware.vercel.app/",
-      sourceCode: "https://github.com/XC475",
-      tech: "Python | Next.js | LangGraph | LangChain | LangFlow | RAG",
-      // image: "/featureship.png",
-      description:
-        "AI-powered platform to help school districts streamline their grant lifecycle: from discovering relevant funding opportunities to managing and writing applications",
-      details: [
-        "Built a Python grant data scraping pipeline using Beautiful Soup, Selenium, Firecrawl, and the OpenAI API, managed with Pipenv and deployed via GitHub Actions for automated data collection and processing.",
-        "Built an AI Agent API with Next.js API routes, integrating specialized AI agents: Search Agent, and a Writer Agent, powered by LangChain, LangGraph, LangFlow, and n8n.",
-        "Developed a RAG pipeline with Supabase Vector Store DB and OpenAI 3.5 Mini embeddings to store and retrieve user files.",
-        "Mentored by Red Hat engineers with project funding of $8,000 through the Red Hat Collaboratory at Boston University.",
-      ],
-    },
     {
       name: "Feature Ship",
       website: "https://featureflow.vercel.app/",
@@ -441,7 +440,19 @@ export default function Home() {
                           </span>
                         </div>
                         <p className="text-sm font-medium text-foreground mb-1">
-                          {job.company} • {job.location}
+                          {job.website ? (
+                            <a
+                              href={job.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:underline"
+                            >
+                              {job.company}
+                            </a>
+                          ) : (
+                            job.company
+                          )}{" "}
+                          • {job.location}
                         </p>
                         <ul className="space-y-1">
                           {job.achievements.map(
